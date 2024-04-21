@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    srand(time(0)); // Ініціалізація генератора випадкових чисел
+
+    int choice;
+    do {
+        int n;
+        printf("Введіть розмір масиву: ");
+        scanf("%d", &n);
+
+        int arr[n];
+        int i, first_zero_index = -1, second_zero_index = -1, product_between_zeros = 1;
+
+        printf("Масив випадкових чисел:\n");
+        for (i = 0; i < n; i++) {
+            arr[i] = rand() % 201 - 100; // Генеруємо випадкове число від -100 до 100
+            printf("%d ", arr[i]);
+            if (arr[i] == 0) {
+                if (first_zero_index == -1)
+                    first_zero_index = i;
+                else if (second_zero_index == -1)
+                    second_zero_index = i;
+            }
+        }
+        printf("\n");
+
+        if (first_zero_index != -1 && second_zero_index != -1) {
+            for (i = first_zero_index + 1; i < second_zero_index; i++) {
+                product_between_zeros *= arr[i];
+            }
+            printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
+        } else {
+            printf("У масиві відсутні два нульових елемента\n");
+        }
+
+        printf("\nМеню:\n");
+        printf("1. Продовжити\n");
+        printf("2. Закінчити\n");
+        printf("Виберіть опцію: ");
+        scanf("%d", &choice);
+        
+        if (choice != 1 && choice != 2) {
+            printf("Невірний вибір. Будь ласка, виберіть опцію 1 або 2.\n");
+        }
+
+    } while (choice == 1);
+
+    printf("Програма завершена.\n");
+
+    return 0;
+}
