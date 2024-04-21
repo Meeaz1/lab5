@@ -1,0 +1,59 @@
+#include <stdio.h>
+
+int main() {
+    int choice;
+    do {
+        int n;
+        printf("Введіть розмір масиву: ");
+        scanf("%d", &n);
+
+        int arr[n];
+        int i, count_less_than_seven = 0;
+
+        printf("Введіть %d цілих чисел:\n", n);
+        for (i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+            if (arr[i] < 7) {
+                count_less_than_seven++;
+            }
+        }
+
+        printf("Кількість елементів масиву, менших за число сім: %d\n", count_less_than_seven);
+
+        int first_zero_index = -1;
+        int second_zero_index = -1;
+        int product_between_zeros = 1;
+
+        for (i = 0; i < n; i++) {
+            if (arr[i] == 0) {
+                if (first_zero_index == -1) {
+                    first_zero_index = i;
+                } else {
+                    second_zero_index = i;
+                    break;
+                }
+            }
+        }
+
+        if (second_zero_index != -1) {
+            for (i = first_zero_index + 1; i < second_zero_index; i++) {
+                product_between_zeros *= arr[i];
+            }
+            printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
+        } else {
+            printf("У масиві відсутні два нульових елемента\n");
+        }
+
+        printf("\nМеню:\n");
+        printf("1. Продовжити\n");
+        printf("2. Закінчити\n");
+        printf("Виберіть опцію: ");
+        scanf("%d", &choice);
+
+        if (choice != 1) {
+            printf("Програма завершена\n");
+        }
+    } while (choice == 1);
+
+    return 0;
+}
