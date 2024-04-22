@@ -13,42 +13,54 @@ int main() {
         printf("Введіть %d цілих чисел:\n", n);
         for (i = 0; i < n; i++) {
             scanf("%d", &arr[i]);
-            if (arr[i] < 7) {
-                count_less_than_seven++;
-            }
-        }
-
-        printf("Кількість елементів масиву, менших за число сім: %d\n", count_less_than_seven);
-
-        int first_zero_index = -1;
-        int second_zero_index = -1;
-        int product_between_zeros = 1;
-
-        for (i = 0; i < n; i++) {
-            if (arr[i] == 0) {
-                if (first_zero_index == -1) {
-                    first_zero_index = i;
-                } else {
-                    second_zero_index = i;
-                    break;
-                }
-            }
-        }
-
-        if (second_zero_index != -1) {
-            for (i = first_zero_index + 1; i < second_zero_index; i++) {
-                product_between_zeros *= arr[i];
-            }
-            printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
-        } else {
-            printf("У масиві відсутні два нульових елемента\n");
         }
 
         printf("\nМеню:\n");
-        printf("1. Продовжити\n");
-        printf("2. Закінчити\n");
+        printf("1. Завдання №1\n");
+        printf("2. Завдання №2\n");
         printf("Виберіть опцію: ");
         scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                for (i = 0; i < n; i++) {
+                    if (arr[i] < 7) {
+                        count_less_than_seven++;
+                    }
+                }
+                printf("Кількість елементів масиву, менших за число сім: %d\n", count_less_than_seven);
+                break;
+            case 2:
+                {
+                    int first_zero_index = -1;
+                    int second_zero_index = -1;
+                    int product_between_zeros = 1;
+
+                    for (i = 0; i < n; i++) {
+                        if (arr[i] == 0) {
+                            if (first_zero_index == -1) {
+                                first_zero_index = i;
+                            } else {
+                                second_zero_index = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (second_zero_index != -1) {
+                        for (i = first_zero_index + 1; i < second_zero_index; i++) {
+                            product_between_zeros *= arr[i];
+                        }
+                        printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
+                    } else {
+                        printf("У масиві відсутні два нульових елемента\n");
+                    }
+                }
+                break;
+            default:
+                printf("Некоректний вибір опції. Будь ласка, спробуйте ще раз.\n");
+                break;
+        }
 
         if (choice != 1) {
             printf("Програма завершена\n");
