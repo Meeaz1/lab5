@@ -3,52 +3,72 @@
 #include <time.h>
 
 int main() {
-    srand(time(0)); // Ініціалізація генератора випадкових чисел
-
     int choice;
+    srand(time(0)); 
     do {
         int n;
         printf("Введіть розмір масиву: ");
         scanf("%d", &n);
 
         int arr[n];
-        int i, first_zero_index = -1, second_zero_index = -1, product_between_zeros = 1;
-
+        int i, count_less_than_seven = 0;
+        
         printf("Масив випадкових чисел:\n");
         for (i = 0; i < n; i++) {
             arr[i] = rand() % 201 - 100; // Генеруємо випадкове число від -100 до 100
             printf("%d ", arr[i]);
-            if (arr[i] == 0) {
-                if (first_zero_index == -1)
-                    first_zero_index = i;
-                else if (second_zero_index == -1)
-                    second_zero_index = i;
-            }
         }
-        printf("\n");
-
-        if (first_zero_index != -1 && second_zero_index != -1) {
-            for (i = first_zero_index + 1; i < second_zero_index; i++) {
-                product_between_zeros *= arr[i];
-            }
-            printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
-        } else {
-            printf("У масиві відсутні два нульових елемента\n");
-        }
-
         printf("\nМеню:\n");
-        printf("1. Продовжити\n");
-        printf("2. Закінчити\n");
+        printf("1. Завдання №1\n");
+        printf("2. Завдання №2\n");
         printf("Виберіть опцію: ");
         scanf("%d", &choice);
-        
-        if (choice != 1 && choice != 2) {
-            printf("Невірний вибір. Будь ласка, виберіть опцію 1 або 2.\n");
+
+        switch (choice) {
+            case 1:
+                for (i = 0; i < n; i++) {
+                    if (arr[i] < 7) {
+                        count_less_than_seven++;
+                    }
+                }
+                printf("Кількість елементів масиву, менших за число сім: %d\n", count_less_than_seven);
+                break;
+            case 2:
+                {
+                    int first_zero_index = -1;
+                    int second_zero_index = -1;
+                    int product_between_zeros = 1;
+
+                    for (i = 0; i < n; i++) {
+                        if (arr[i] == 0) {
+                            if (first_zero_index == -1) {
+                                first_zero_index = i;
+                            } else {
+                                second_zero_index = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (second_zero_index != -1) {
+                        for (i = first_zero_index + 1; i < second_zero_index; i++) {
+                            product_between_zeros *= arr[i];
+                        }
+                        printf("Добуток елементів масиву, розташованих між першим і другим нульовими елементами: %d\n", product_between_zeros);
+                    } else {
+                        printf("У масиві відсутні два нульових елемента\n");
+                    }
+                }
+                break;
+            default:
+                printf("Некоректний вибір опції. Будь ласка, спробуйте ще раз.\n");
+                break;
         }
 
+        if (choice != 1) {
+            printf("Програма завершена\n");
+        }
     } while (choice == 1);
-
-    printf("Програма завершена.\n");
 
     return 0;
 }
